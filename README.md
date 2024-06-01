@@ -26,4 +26,4 @@ We welcome contributions from the community! If you have identified a new patter
 ## Feedback
 Your feedback is valuable to us. If you have any suggestions or questions, please open an issue or contact the repository maintainers.
 
-Happy coding, and may your pattern recognition skills lead you to success in competitive programming!
+Happy coding, and may your pattern recognition skills lead you to success in competitive programming!!
