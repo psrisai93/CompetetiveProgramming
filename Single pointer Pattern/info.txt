@@ -1,0 +1,26 @@
+Single pointer Pattern
+
+TreeSet methods which would be useful for this kind of below problems
+floor(E e)
+Returns the greatest element in this set less than or equal to the given element, or null if there is no such element.
+lower(E e)
+Returns the greatest element in this set strictly less than the given element, or null if there is no such element.
+ceiling(E e)
+Returns the least element in this set greater than or equal to the given element, or null if there is no such element.
+higher(E e)
+Returns the least element in this set strictly greater than the given element, or null if there is no such element.
+
+
+
+
+
+Problems
+1099. Two Sum Less Than K - i<j for any two numbers always i<j-  2nd point is should not use HashMap because it only can retreive exact value in O(1) time but here we require less than K value. Possible with treeset. Do push all elements to treeset
+This is must be solved without sort as this is asked for i<j and the corresponding sum - use treeset and method treeset.lower(number) gives the num in set which is strictly less than K 
+
+Count numbers with difference between number and its digit sum greater than specific value
+This is solved by simple mathematical equation - sum of digits(k+1)>sum of digits(k)+1 - implying sum of digits of k is greater than particular number, then k+1 also holds the same - finding the k integer is can be solved by binary search between 1 to n
+
+
+
+

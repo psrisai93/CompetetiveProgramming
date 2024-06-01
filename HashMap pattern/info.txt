@@ -1,0 +1,5 @@
+HashMap pattern
+
+Two Sum - not sorted
+This is solved by either HashMap pattern or Two pointer Pattern but since the array is not sorted, HashMap gives the O(n) complexity where as two pointer pattern gives O(nlogn) complexity
+

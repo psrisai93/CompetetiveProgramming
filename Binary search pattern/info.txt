@@ -1,0 +1,96 @@
+Binary search pattern
+while loop condition : low<=high(checking for mid when both are equal)
+mid = low+(high-low)/2
+to move left half: high = mid-1 (avoid infinite loop)
+to move right half : low = mid+1 (avoid infinite loop)
+
+multiplying two numbers and adding two integers consider the case of integer overflow - in this case, assign the result to long so that it handles
+
+Observation : observe the pointers of left and right and generalize them to solve the problems, means return left may solve the some problems in all cases and return right may solve the some problems in all cases
+
+sum of digits(k+1)>sum of digits(k)+1
+Math.floor(float)
+
+Type 1 
+Finding target in 2d array which is sorted in either ascending or descending
+This is solved by checking first value and last value - assign low to 0th index - assign high to last index - calc mid - if target found in left subarray then change high to mid-1 otherwise it must be in right subarray then change to low to mid+1
+
+35. Search Insert Position
+This is solved by returning left pointer after the search - rest f the thing is same
+
+74. Search a 2D Matrix
+This is solved by condition if start>end means that element not found, if found we will break at that point means left<=right where we return true
+
+69. Sqrt(x)
+This is solved by same - one condition change, low=mid, high=mid -1 while condtion r-l>1 - negative case for x=0 and x=1
+
+
+
+278. First Bad Version
+This is solved by Simple binary search
+
+34. Find First and Last Position of Element in Sorted Array
+This is solved by simple binary search until index is target and index-1 is not equal to target similarly for right aide index is target and index+1 is not equal to target. Check for boundary conditions
+Missed case : mid==start || nums[i]!=nums[i-1] and similarly mid==end || nums[i]!=nums[i+1]
+
+Ceiling in a sorted array
+This is solved by observing the pointers l,m,r
+
+275. H-Index II
+This is solved by simple binary search using citations[i]>=n-i
+
+162. Find Peak Element
+This is solved by same as above but a slight change in true condition- here true condition and partition condition gets mixed up because true condition for return is mid < mid+1, at the same time we want to try for more better value that found for the same case by moving left this creates partition. So overall 
+Left partition : l,mid
+Right partition : mid+1, r
+While condition : l<r
+Return : l
+Suppose problem statement changed to get maximum for peaks, then after finding first peak, then split the new range with l to mid, mid+1 to r
+
+1095. Find in Mountain Array
+This is solved by using logic strictly increasing function property in mountain array - means that if there are multiple occurrences in array it cant be present in one side it must be in one in increasing side and one in decreasing side
+So steps is 1.find peak element(only one peak element in array) 2.find target in left partition 3.if not find element in right partition 4. If not return -1
+Binary search with different condition rather than traditional. This helps to have access of mid in terms of low variable
+While condition: l<r
+Left partition : l, mid
+Right partition : mid+1, r
+Return : l
+
+153. Find Minimum in Rotated Sorted Array
+Finding Inflection point by condition is different from mountain array. But rest of all is same
+While : l<r
+Left partition : l,mid 
+Right partition :  mid+1, r - condition: [index]>[0]
+
+33. Search in Rotated Sorted Array
+Steps 1.find the inflection point
+Search in left partition
+Search in right partition 
+If not return -1
+
+Type - maximising the minimum/ minimising the maximum problems
+1011. Capacity To Ship Packages Within D Days
+This is solved by binary search between l is max element of array, r is sum of all weights. 
+Left partition: r=mid(means suppose mid is satisfied the lugguage, inclusive mid helps in find any other element still less than mid. If not mid is return when l==r)
+Right partition : l=mid+1
+Return : l when l==r
+
+410. Split Array Largest Sum
+Same as above
+
+I am keeping this section pending because these were seems different problems
+
+
+4. Median of Two Sorted Arrays - tough
+2 approaches - 1. By keeping a common variable for both arrays and increment and calculate the medium once the common variable k arrives at the median index - O(n) time complexity
+Using Binary search approach - idea is to move the pointers on each array at the point such that it can count up to the elements before the median (generally nums1.length+nums2.length/2)
+check the boundaries because of index out of bound by making -inf and +inf at each ends for nums2 as nums2 length is less than nums1 length
+while(true) is used to make use of -inf and +inf at ends of nums2
+Formula : 
+int mid2 = (int)Math.floor(l+((float)(r-l)/2));
+int mid1 = leftParitionCount-(mid2+1)-1;
+Errors:
+1.Must use float conversion while division 
+2.Must use Math.floor to get correct conversion from float to int
+Math.floor(float) used for problem Median of Two sorted arrays where l=0, r=-1 so mid = l+(r-l)/2 =>-0.05 but if we dont use floor then it would round off to 0 but we want it to round off to -1
+Convert to float inside the floor to get the correct answer

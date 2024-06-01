@@ -1,0 +1,91 @@
+Sliding window pattern
+
+Average contiguous subarray pattern
+
+Contiguous, Subarray, consecutive, substring - Sliding window
+Subsequence, 0/1 knapsack problems - dp problem
+
+There are two variations of algorithmic paradigms for sliding window
+1.
+loop of left pointer until end of length
+	loop of right pointer until the condition is true
+		sum increase
+		increase right
+	find max here
+	decrease the sum of left pointer
+2.
+loop of right pointer until end of length
+	sum increase
+	if false condition case of window
+		decrease sum
+		increase left pointer
+	find max here
+
+Remember : If the range/window length is calculating within right loop, then it is right-left+1, outside the right while loop then it is right-left
+Mostly 1st paradigm works in every problem
+we can compare maps by map.equals(map2)
+
+Observation : In 340. Longest Substring with At Most K Distinct Characters, Inside while for right loop, in general we mention outside the right loop, for == case we add the one more character to the existing map, which changes map size and outside max condition doesnt capture the == case. This is why we mention max condition isnide right by moving from outside. However one more case where right pointer is goes outside the array where the max wont be calculated though max condition is true, so for this we remain max condition outside the loop also. The change between max condition inside/outside is calculation of range, inside max condition has right-left+1 where as outside max condition has right-left because already right pointer is at one pointer extra 
+
+
+
+NOTE : substring - sliding window is used, subsequence - dp is used	
+some examples where 1st paradigm works better is 2461. Maximum Sum of Distinct Subarrays With Length K
+I am planning to apply fiorst paradigm to all other algorithms, let me try and get back here
+
+Maximum sum subarray of size k (Maximum subarray problem is different where Kadane's comes into picture. Maximum subarray generally means it considers subarray of length 1,2,3,4,5,6,..end out of the whole calculates the sum, think like a dp problem where -1 index of array as 0 53. Maximum Subarray)
+This is solved by - create two pointers both with 0th index - run until j less than length of array - if j-i less than k, add to the sum and increment end window otherwise increment  start window - end of every iteration, check for the maximum when it j-i is equal k
+
+Smallest subarray with given sum
+Same as above, but condition changed to sum -  check at every iteration changed to j-i minimum
+
+Longest substring with atleast k repeating characters 395. Longest Substring with At Least K Repeating Characters
+Observation : 1. the problem is having contraint on k repeating charecters but not specified about the how many charecters can be, means that substring can have one character that solves k repeating characters, two characters with atleast k repeating characters, three characters with atleast k repeating hcaracters and so on.. which means we have to calculate apply the sliding window pattern for each case.
+This is solved by looping with 1 character with k repeating until unique elements - find the unique elements in array - loop 1:unique - now it is like a normal problem where condition of increase window until it doesn’t exceed loopunique otherwise shrink - before the end of iteration calculate the max by checking loopunique
+Note: check what variables must be changed for expanding window and shrinking window
+NOTE: sliding window pattern can calculate with only one constraint, to use on multiple contraints, repeat the sliding window pattern multiple times. To do this use an another loop from 1 to size of the unique characters
+2.The max is calculated inside the while of right loop because the moment we come out of the loop, the map is inserted with value
+3.Atleast variable is used to count the number of variables satisfies the k repeating character contriants out of all the elements in map
+
+Longest substring with k distinct characters 2461. Maximum Sum of Distinct Subarrays With Length K
+This is solved by - Create count array for characters with 256 - condition changed to repeating character - store variable is changed to j-i 
+ 
+Longest subarray of 1’s after deleting one element
+This is same as above - 
+Note : while returning make sure you return the length of window-1 as you are deleting a element
+Remember : For the problems like k number of times it can be skipped, in this case the condition for right while loop is (k>0 || nums[right]==1) becasue with just k>0 will not able to increase the window for case where k is not required however outside right while loop, max calculation condition is (k>=0) becasue at here we are not expanding the window just calculating the max so = is allwed and nums[right]=0 or right>nums.length, in these both cases, we can directly say k>=0 for calculation of max 
+
+Fruits into basket 904. Fruit Into Baskets
+Solved by same pattern - count and store the number of types of fruits - condition is the basket holding types of fruits which is 2 - return max of the window size
+Main challenege to solve this problem is how to choose the condition. Try to understand the condition 
+(map.size()<2 || (map.size()==2 && map.containsKey(fruits[right]))
+Data structure used is HashMap to store the array element and its count
+
+No repeat substring 3. Longest Substring Without Repeating Characters
+
+Longest substring with same letters after replacement
+This is solved by keeping check of max repeating character count and subtracting with window size gives the non repeating characters - two approaches - 1.going through countArr 256 elements for every iteration and keep check the maxRepeating character count - 2. We can retrieve the count in O(1) time - using maxFreq and updating while we are changing the count
+Note: HashSet is required to add the character having the same high freq, so that this helps in check in the expansion of window  
+I missed cases AAAB, 0 
+ABCCC,2
+
+1004. Max Consecutive Ones III - new learnt is
+k>0 || nums[right]==1(remember this condition for all replacing charecter problems) means that if nums[right]==0 then it must check for k>0. If we put just k>=0 or k>0 without nums[right]==1 then problem arises is nums[right]==1 window must increase its size though k=0 but since k>0 it is not happening. Why k>=0 doesnt work? it goes for an extra iteration where right will be now 2 indices farer than actual, only 1 indice far is acceptable for smooth calculations
+
+Longest subarray with ones after replacement
+Condition - counting zeros and not exceed k , max value is length of window - everything else is same
+
+	
+
+String anagrams
+Solved by idea anagrams is true if comparing the two countArr of each string - window size is const. and determined by input string with which we want to check - 
+Note: Trickyness when I am doing with Maps where 1st Paradigm is not working. Using 2nd paradigm is easier to do incase of maps involvement
+
+Smallest window containing substring
+Almost same - create a countArr with input string - while window increment, decrease the count if char is found else do nothing - if countArr elements are zero then save the window size
+
+Substring with concatenation of all words
+Little different - store the input words in map with zero count - finding word of window from 0 index with input word length - if not found then move index by 1 and reset the count in map - dot his until end of string length
+
+Maximum subarray - kadane’s algorithm
+This is solved by - global max to first index array - local max to zero - run from 1 index to loop until end of array - if cursum is negative make it zero - add to cursum - check for global maximum with curmax

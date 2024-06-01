@@ -1,0 +1,111 @@
+Graph pattern
+
+We will use undirected graph until topological sort
+
+O(V) for initialisation of vertices and O(E) for loop of edges total O(V+E) - Time complexity of dfs and bfs, space complexity O(V+E) to 
+
+Edges for complete graph has n*n-1/2 for undirected edges
+Edges for directed edges n*n-1
+
+Number of commented comments
+Using dfs - O(V+E)
+
+Existence of path between two nodes
+Using dfs - O(V+E)/ also do it by disjoint union data structure
+
+All paths between two nodes
+Using dfs and backtracking - exponential time complexity - because we will repeat the vertices
+
+Shortest path between two nodes
+Bfs using queue - iterative method - time complexity is O(V+E)
+
+Root level is 0 in bfs
+In case of edges with unit distance, we check next node is true then skip, this means already there is another node which we have reached this node which leads to shortest path than this already
+
+Shortest number of steps, moves with obstacles and problem asked to find the distance between two nodes
+Bfs as cost between each node is unit
+
+Deque Interface, ArrayDeque class is used to create queue where add(),poll(),peek(),pollFirst(),pollLast() are popular methods
+PriorityQueue is used to create Heap where add(), poll(), peek() are popular methods
+LinkedList is used to create queue where add(),remove(),peek() are popular methods
+
+In graph problem, if input is matrix then all nodes are connected to each other. No need to qoerry about disconnected components
+where as in adjacency map/list, there may be arise a problem of disconnected graph where we have to run the multiple BFS/DFS methods by iterating through whole map or list
+
+without using pair, we can store i,j with a number - optional remember - we can do this only if we are given with matrix, it fails with adjacencyList
+queue.add(row*m+col) - to convert row,col into a number - to convert back to row and col - m is number of columns
+Row = number/m & col = number%m
+
+Matrix input in a graph problem implies that each edge is undirected
+
+In BFS/DFS we add any matrix element to queue is to do further exploration in specified directions
+
+Finding shortest path between source to all other vertices takes O(E) time in an unqeighted graph. If the weights are not same, then we might need more general solution Dijkstra Algorithm - O(V^2 + E) or O(ElogE). Even if the weights are restricted we can achieve O(E) time using 0-1 BFS(using ArrayDequeue so if ) we push front if 1 push last using addFirst() and addLast() methods)
+
+What is difference between AdjacencyMatrix & AdjacencyList/AdjacencyMap
+Adjacencymatrix is defined as input of graph information where each cell (i,j) represents node & value at (i,j) represent edge value of (i,j) to come from i,j vertices
+whereas AdjacencyList is the key,value pair where key will be the node and value will be the list of nodes in case of unti weighted graph but in case of unequal weights we use pair (j,w) where i is the node and w is the weight to each j means Unit weight has datastructure HashMap<Integer,List<Integer>> where as unequal weighted graph traversal must use HashMap<Integer,List<Pair<Integer,Integer>>>
+
+Map.Entry && map.entrySet() to convert map to entry set, entry then entry.getKey() & entry.getValue() to retrieve key and value
+
+Problems with AdjacencyMatrix are different than AdjacencyList are different just be aware of that. The way we traverse if different for both
+
+Type 1
+Check ring topolygy
+Properties : V>=2, V=E, all vertices should have degree 2
+Why we need V+1. Length array
+
+Check start topology
+V>=4, V=E+1, degree of one vertex is V-1, degree if all others is 1
+
+Check bus topology
+Starting and ending degree 1, other vertices degree 2,  V=E+1, 
+
+Cycle detection with undirected edges is different from cycle detection with directed edges. Difference is in case of undirected we have to check the case of whether next is prev itself. Cycle is when iteration encountered the node which is visited and it is not a prev itself. 
+
+Detection of disconnected components in graph in directed graph different from undirected graph. In undirected graph, one dfs iteration from one node is enough to say one component in graph and number of dfs functions which is not visted gives the number of disconnected components in undirected graph. Where as in case of directed graph, we have to maintain two states one is visited(if other node which is not encountered the visited in traversal consider as different component), second state is visiting(within the one dfs used for cycle detection). Number of iterations is equal to number of edges in case of undirected edges
+
+Keyrooms is also similar to reaching all rooms with undirected edges. Here not like cycle, not needed to check for parent with current node
+
+Number of islands - count dfs loops
+Using dfs - O(V+E), SC O(V)
+
+Clone graph - Tricky problem
+Using dfs
+Note : Here we create a loop of DFS in given method because we need newNode variable which is unable to retrieve when we create in DFS function. ALso Map with node.val, newNode is created as a visited node instead of hashset
+
+
+
+
+Type 2 - multi source bfs - always push destinations as sources in bfs
+A into B conversion 542.Leet code
+Multiple source multiple destinations - means 
+Approach 1: using just bfs starting from 0,0 and try to track the distance and assign to the matrix if the cell is with 1
+Note:
+add all 0 nodes to queue make note the min distance as 0
+Approach 2 : we have to calculate shortest path between among multiple destinations . here use the dp as well to store the shortest distance which was already calculated. 
+Note:
+
+
+Shortest path with atmost k breakable obstacles
+Two data struicture - one is Class storing 3 variables, Queue, max k matrix (used to store k max at each cell)
+Bfs + tracking the max k by creating a class Node and variables i,j,k
+Also we memorise the max k value at each cell. If the cell is reached with more k then add it to the queue and equal steps is taken care at bfs so we don’t worry about it
+
+Trapping Water 3D - Not sovled
+
+417. Pacific Atlantic Water Flow
+bfs multisource - add the intersection of cells possible from both oceans
+Maintain visitedMatrix with different statusses - 0: unvisited, 1:visited by pacafic ocean, 3: visited by atlantic ocean, 2: visited by both oceans
+
+994. Rotting Oranges
+Note : the time taken to rotten oranges is distance-1
+
+Type4 - dijktras algorithm
+743. Network Delay Time
+solved by minPriority queue
+PriorityQueue<Pair> queue = new PriorityQueue<Pair>((p1,p2)->(p1.value>p2.value)?1:-1); for min queue
+new PriorityQueue<Pair>((p1,p2)->(p1.value<p2.value)?1:-1); for max queue
+Here in RHS, Parameterization is mandatory because it helps in Lambda expresent to not needed to cast p1,p2
+
+
