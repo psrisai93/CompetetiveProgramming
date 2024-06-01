@@ -1,0 +1,146 @@
+Dynamic Programming Pattern
+Ref : Copy of DYNAMIC PROGRAMMING PATTERNS - Google Sheets
+Main Mantra : If current position is included, we will have one recursion function according to problem statement. If current position is not included then we will have another recursion. At the end we will may take max. of both if it is asked in the statement
+NOTE:Dont forget to return dp  value
+NOTE : If map is acts as dp instead of array dp, then take care while insertion, dont create innerMap everytime, if innermap exists inside the map, then get the map and put the new value to it
+
+Type 1 Fibonacci Numbers Type - O(N) TC, O(N) SC max
+Climbing Stairs
+
+House Robber
+temp = max(nums[cur]+a,b)
+
+
+Fibonacci Number
+just by using two variables, without using whole O(N) solved it. It is as well mainataining last two consecutive results
+
+Maximum Alternating Subsequence Sum - goal is to get the maximum special sum of subsequence array
+Consider the consequetive element or ignore. If consequetive is considered, it come sunder odd index so make it multiplied by -1
+
+Type 2 Zero / One Knapsack - DP of subsequence with targetSum
+These problems have dp dimension with dp[nums.length][target]. Also TC goes to O(N*targetSum) and SC(N*targetSum)
+
+Partition Equal Subset Sum - All numbers in array are positive
+set the target of target/2 as search for target/2 subsets is enough where it satisfies the equal subset exist condition
+
+Target Sum - subsequence target sum by inserting a sign to each value in array - numbers in array may be positive or negative
+Here change is length of the target sum, where it is the sum of all elements in nums
+Also while inserting values in dp, we must shift the target for negative values
+
+3148. Maximum Difference Score in a Grid
+Speciality in this problem is the start can be any index in the matrix and final can be any index.  Check the dfs backtracking + cache solution in leetcode if you click the link
+Here for every cell we are going to call the dfs calls on next r+1 cells
+similarly we are going to call the dfs calls on next c+1 cells
+
+Type 3. Unbounded Knapsack - 
+
+Coin change
+Only possible by Original DP means DFS + backtracking approach i.e top down approach wont work because in the constrains give than max is 2^31-1 where we have to create 2^31-1+1 array lenth which not possible for arrays
+we must go with the original DP solution which is bottom to top approach
+
+Coin change II 
+every dp solution is different from other though they are similar problem statement. this is eveident by current and above problems. DP solution above is not works for dp solution below
+also the constrains are not 2^31-1, so we can use dfs backtracking + memorization where for memorization we create dp[amount+1][max(coins)]
+corner case : amount==0 then return 1 as amount will be satisfied whith any coin
+
+Minimum Cost for Tickets
+int min = Math.min(costs[cur]+dfs(ts.higher(days+map.get(cur)-1), cur, costs, dp,ts),
+                        dfs(days, cur+1,costs, dp,ts));
+the above one avoid duplicate combinations(duplicate combinations are permutations) by not going the cursor cur-1. it is always cur+1
+Also in this problem current cost is append to 1st dfs function, but not 2nd dfs function as 2nd function is just moves the cursor to next
+
+Observation : In case of minimum problems the dp 2d will be reduced to dp 1dimentional array. If asked for number of combinations then dp 2d is required
+2nd observation is If problem statement combinations lead to target/amount, then also 2d dp is required
+
+3154. Find Number of Ways to Reach the K-th Stair 
+In this problem, new thing is we have to calculate the iteration even after reaching the destination. So I wrote the bottom snippet, inside the true base case as well. 
+
+
+4. Longest Common Subsequence
+
+NOTE: If the problem states that the branches of the tree/graph allowed to be repeated then original dp is different(ex:coins can be used unlimited and here as well we skip the coin and make the combinations out of the coins and find the target) and complex than compared to branches of the tree are unique and cannot be repeated or allowed(ex:coin problem with coins are not repeated, but we can skip the coin and make the combinations out of the coins and find the target, second example: longest common subsequence where we use the charecters given in the array and cannot be repeated)
+
+
+Longest Common Subsequence
+Dp[string1.length+1][string2.length+1] - default are 0. dont change
+Bottom UP approach where start from m-1,n-1 and return 0,0 once computed
+if char at m-1,n-1 matches then go diagonal, else take max(down, right).
+Go in the direction left and the top
+TC O(M*N) SC O(M*N)
+Observation: Longest common subsequence between two empty strings is also 0 because longest common subsequence is the length of the common subsequence where for empty strin it is turn out to be 0
+
+
+Longest Increasing Subsequence
+Dp[nums.length+1] 
+O(N^2) in Dp or DFS with cache, brute force 2^N 
+SC in DP/DFS with cache is O(N)
+
+
+Edit Distance
+Problem : find the min changes do to the given string to convert target string
+Goal is to convert given string to final string by 1. inserting 2. removing 3. replacing. If we convert each into dynamic programming language
+Insertion - 1+dp[i][j+1]
+remove - 1+dp[i+1][j]
+replace - 1+d[i+1][j+1]
+matches - 0+dp[i+1][j+1]
+
+Distinct Subsequences
+here creation of dp is small as before. but one change is we dont add like 1+dp[i+1][j], we only take from indexes where imagine how a dfs gives the 1 or 0 as feedback and later we add the returned value. Ealier 1+dp[i+1][j] be like adding the current value and asking for the value that gives back
+Observation : 
+final string on columns and input string is at rows so create the dp in the form such that int[][]
+The base case in the dp is nothing but the overflow row and the overflow column. This basecase values are different from different problem statement 
+Any dp problem is solved by DFS + cache the time complexity would be the same but memory complexity would be more in DFS+memorization approach
+(i+1,j) is the one that responsible for 0/1 knapsack which is using in dp when the charecter not matching
+Distinct subsequences means the number of valid subsequence paths where we want the feedback value as 1 for valid and 0 as invalid path
+
+toCharArray() - to convert string to chararray tomake the string mutable as string is immutable object
+
+Type 5. Palindromes
+Longest Palindromic Substring
+No Dp involved. However main logic behind is to expand the charecters by assuming each charecter as middle of palindrome i,i and calculate the max palindrome if exists. One more case is when the palindrome length is even so for this consider i,i+1 as initial and then proceed the same.
+s.substring(i,j) i is inclusive, j is exclusive
+
+ 
+Palindromic Substrings
+same as above prolem, change is keep counting though the palindromes are repating at different index
+suppose problem statement tweeked as unique palindromes, then use hashset and add all palindrome generated. return the length of the hashset
+
+Longest Palindromic Subsequence
+Same as LCS(longest common subsequence) but create the reverse array of original and find LCS
+there is no inbuilt function for reverse of the string. so use toCharArray() to convert string to array so that it is mutable then exchange the charecters and then convert to string by String.valueOf(charArray object)
+
+486. Predict the Winner
+This is very different problem based on Game strategy
+Approach 1: calculate the difference of scores
+Always max is invloced
+NOTE:Below works if only two branches are exisits, becaise if one is min means other becomes maximum. But this one works for any kind of branches involved.
+res = Math.max(res,stoneValue[i]-solver1(i+1,j,stoneValue,map));
+res = Math.max(res,stoneValue[j]-solver1(i,j-1,stoneValue,map));
+NOTE : if the values involved are negative, then base case is always returns 0 whether values are psotiive or negative. but the max which is initialized befoer the recursion must be Int_min for negative integers involved becasue the min can be less than 0
+
+Approach 2: calculate score of one player. Min of opposite player gives, max for our player. This works if only two branches are exisits, becaise if one is min means other becomes maximum
+In this case, though two players involved, we must calculate the max for only one player. For this the recursion is unique where if the player is of our concern then include the cur value, player is opponent and it is not our interest then calculate the min because opponent will take the max and the left out will be the min of both(becau of optimal play) also we must not add the opponent score here, so ignore the addition and return the value in recursion. Recursion is going to be
+
+int left = (player)?nums[i]:0;
+int right = (player)?nums[j]:0;
+int feedback=0;
+if(player){
+   feedback = Math.max(left+solver(i+1,j,!player,nums,map),right+solver(i,j-1,!player,nums,map));
+}else{
+    feedback = Math.min(left+solver(i+1,j,!player,nums,map),right+solver(i,j-1,!player,nums,map));
+}
+
+1406. Stone Game III
+How stone game 3 and Predict the winne ris differ is only in the way the first,last rather first three.
+Apply
+
+
+Dp Template
+public int dfs(int cur, int[] nums, int[] dp){
+        if(cur>=nums.length)
+            return 0;
+        if(dp[cur]!=-1)
+            return dp[cur];
+        dp[cur] = Math.max(nums[cur]+dfs(cur+2,nums,dp),dfs(cur+1,nums,dp));
+        return dp[cur];
+    }
